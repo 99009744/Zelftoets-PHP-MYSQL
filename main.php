@@ -1,5 +1,7 @@
 <?php
     include ("function.php");
+    connect();
+     $users = getEverything();
 ?>
 
 <!DOCTYPE html>
@@ -12,6 +14,15 @@
 </head>
 <body>
     <div class="mainpage">
+    <button id="create" href="creat.php">CREATE</button>
+        <? foreach($users as $user){ ?>
+            <div class="card">
+                <p>Naam: <?= $user['naam'] ?><br>
+                <p>Verjaardag: <?= $user['datum'] ?><br><br>
+                <a href="edit.php">Bewerken</a>
+                <a href="delete.php">Delete</a>
+            </div>
+        <? } ?>
         
     </div>
 </body>
