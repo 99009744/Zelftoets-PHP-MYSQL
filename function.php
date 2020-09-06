@@ -16,14 +16,32 @@
         return $user;
     }
 
-    function insert($postNaam, $postDatum){
+    function insert($naam, $datum){
         $conn = connect();
         $sql = $conn->prepare("INSERT INTO naam (`naam`, `datum`) VALUES (:naam, :datum)");
-        $sql->bindParam(':naam', $postNaam);
-        $sql->bindParam(':datum', $postDatum);
+        $sql->bindParam(':naam', $naam);
+        $sql->bindParam(':datum', $datum);
         $sql->execute();
         $conn = null;
-        header("index.php");
+        header("main.php");
+    }
+    function getById($id){
+        $conn = connect();
+        $sql = $conn->prepare("SELECT * FROM naam WHERE `id` = :id");
+        $sql->bindParam(':id', $id);
+        $sql->execute();
+        $user = $sql->fetchAll();
+        $conn = null;
+        return $user;
+    }
+    function edit($id, $datum, $naam){
+        $conn = connect();
+        $sql = $conn->prepare("UPDATE naam SET naam = :naam, datum = :datum where id = :id ");
+        $sql->bindParam(':id',$id);
+        $sql->bindParam(':datum', $datum);
+        $sql->bindParam('naam', $naam);
+        $sql->execute();
+        $conn = null;
     }
 
 ?>
