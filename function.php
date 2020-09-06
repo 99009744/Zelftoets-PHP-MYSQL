@@ -9,7 +9,7 @@
 
     function getEverything(){
         $conn = connect();
-        $sql = $conn->prepare("SELECT * FROM `naam` ORDER BY `datum` ");
+        $sql = $conn->prepare("SELECT * FROM `naam` ORDER BY `datum`");
         $sql->execute();
         $user = $sql->fetchAll();
         $conn = null;
@@ -44,4 +44,11 @@
         $conn = null;
     }
 
+    function delete($id){ 
+        $conn = connect();
+        $sql = $conn->prepare("DELETE FROM naam where id = :id");
+        $sql->bindParam(':id', $id);
+        $sql->execute();
+        $conn = null;
+    }
 ?>

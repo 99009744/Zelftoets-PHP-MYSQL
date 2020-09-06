@@ -39,13 +39,47 @@
         <? foreach($users as $user){ ?>
             <div class="card">
                 <p>Naam: <?= $user['naam'] ?><br>
-                <p>Verjaardag: <?= $user['datum'] ?><br><br>
+                <p>Verjaardag: <?= $user['datum'] ?></p>
                 <a href="edit.php?id=<?= $user['id'] ?>">Bewerken</a>
-                <a id="delete" href="main.php?id=<?= $user['id'] ?>">Delete</a>
+                <button class="delete" data-id="<?= $user['id'] ?>">Delete</button>
             </div>
         <? } ?>
         
     </div>
-    
+    <script
+        src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+        crossorigin="anonymous">
+    </script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script>
+        $(document).ready(function(){
+   $('.delete').on('click', function(e){
+       e.preventDefault(); //cancel default action
+
+       var href = "redirect.php?id=" + $(this).data("id");
+       var message = $(this).data('confirm');
+
+       //pop up
+       swal({
+           title: "Are you sure ??",
+           text: message, 
+           icon: "warning",
+           buttons: true,
+           dangerMode: true,
+       })
+       .then((willDelete) => {
+         if (willDelete) {
+           swal("Poof! Your imaginary file has been deleted!", {
+             icon: "success",
+           });
+           window.location.href = href;
+         } else {
+           swal("Your imaginary file is safe!");
+         }
+       });
+   });
+});
+    </script>
 </body>
 </html>
